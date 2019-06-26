@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Game2.Screens
 {
-    public class SplashScreen : GameScreen
+    public class TitleScreen : GameScreen
     {
         KeyboardState keyState;
         SpriteFont font;
@@ -30,8 +30,8 @@ namespace Game2.Screens
         public override void Update(GameTime gameTime)
         {
             keyState = Keyboard.GetState();
-            if (keyState.IsKeyDown(Keys.Z))
-                ScreenManager.Instance.AddScreen(new TitleScreen());
+            if (keyState.IsKeyDown(Keys.Enter))
+                ScreenManager.Instance.AddScreen(new SplashScreen());
 
         }
 
@@ -40,7 +40,5 @@ namespace Game2.Screens
             spriteBatch.DrawString(font, "SplashScreen",
                 new Vector2(100, 100), Color.Black);
         }
-
-
     }
 }

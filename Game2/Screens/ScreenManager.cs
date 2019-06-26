@@ -13,6 +13,11 @@ namespace Game2.Screens
     {
         #region Variables
 
+        /// <summary>
+        /// Creando contenido personalizado
+        /// </summary>
+        ContentManager content;
+
         GameScreen currentScreen;
         GameScreen newScreen;
 
@@ -58,9 +63,19 @@ namespace Game2.Screens
         {
             newScreen = screen;
             screenStack.Push(screen);
+            currentScreen.UnloadContent();
+            currentScreen = newScreen;
+            currentScreen.LoadContent(content);
         }
-        public void Initialize() { }
-        public void LoadContent(ContentManager Content) { }
+        public void Initialize()
+        {
+            currentScreen = new SplashScreen();
+        }
+        public void LoadContent(ContentManager Content)
+        {
+            content = new ContentManager(Content.ServiceProvider, "Content");
+            currentScreen.LoadContent(Content);
+        }
         public void Update(GameTime gameTime)
         {
             currentScreen.Update(gameTime);
