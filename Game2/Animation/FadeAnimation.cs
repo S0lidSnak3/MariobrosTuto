@@ -9,8 +9,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game2.Animation
 {
-    public class FadeAnimation
+    public class FadeAnimation : Animation
     {
+        bool increase;
+        float fadeSpeed;
+        TimeSpan defaultTime, timer;
+        bool startTimer;
+        float activateValue;
 
+        public override void LoadContent(ContentManager Content, Texture2D image, string text, Vector2 position)
+        {
+            base.LoadContent(Content, image, text, position);
+            increase = false;
+            fadeSpeed = 1.0f;
+            defaultTime = new TimeSpan(0, 0, 1);
+            timer = defaultTime;
+            activateValue = 0.0f;
+        }
     }
 }
