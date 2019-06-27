@@ -37,8 +37,8 @@ namespace Game2.Screens
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, "SplashScreen",
-                new Vector2(100, 100), Color.Black);
+            spriteBatch.DrawString(font, "Title Screen",
+                new Vector2(100, 300), Color.Black);
         }
     }
 }
