@@ -59,7 +59,7 @@ namespace Game2.Animation
             image = null;
             isActivo = false;
         }
-        public virtual void Update(SpriteBatch spriteBatch)
+        public virtual void Update(GameTime gameTime)
         {
 
         }

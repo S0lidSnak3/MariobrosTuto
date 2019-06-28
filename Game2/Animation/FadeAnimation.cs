@@ -16,6 +16,8 @@ namespace Game2.Animation
         TimeSpan defaultTime, timer;
         bool startTimer;
         float activateValue;
+        bool stopUpdating;
+        float defaultAlpha;
 
         public override void LoadContent(ContentManager Content, Texture2D image, string text, Vector2 position)
         {
@@ -25,6 +27,33 @@ namespace Game2.Animation
             defaultTime = new TimeSpan(0, 0, 1);
             timer = defaultTime;
             activateValue = 0.0f;
+            stopUpdating = false;
+            defaultAlpha = alpha; 
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (isActivo)
+            {
+                if (!stopUpdating)
+                {
+                    if (!increase)
+                        alpha -= fadeSpeed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    else
+                        alpha += fadeSpeed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                    if (alpha <= 0.0f)
+                        alpha = 0.0f;
+                    else if (alpha >= 1.0f)
+                        alpha = 1.0f;
+            
+                }
+            }
+            else
+            {
+                alpha = defaultAlpha;
+            }
         }
     }
 }
