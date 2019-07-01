@@ -62,6 +62,11 @@ namespace Game2.Animation
             defaultAlpha = alpha; 
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

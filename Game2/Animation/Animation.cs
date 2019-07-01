@@ -39,6 +39,11 @@ namespace Game2.Animation
             get { return isActivo;  }
         }
 
+        public float Scale
+        {
+            set { scale = value; }
+        }
+
         public virtual void LoadContent(ContentManager Content, Texture2D image, 
             string text, Vector2 position)
         {
@@ -79,7 +84,7 @@ namespace Game2.Animation
             if(image != null)
             {
                 origin = new Vector2(sourceRect.Width / 2, sourceRect.Height / 2);
-                spriteBatch.Draw(image, position + origin, sourceRect, Color.White,
+                spriteBatch.Draw(image, position + origin, sourceRect, Color.White * alpha,
                     rotation, origin, scale, SpriteEffects.None,0.0f);
             }
 
@@ -88,7 +93,7 @@ namespace Game2.Animation
                 origin = new Vector2(font.MeasureString(text).X / 2, 
                     font.MeasureString(text).Y / 2);
                 spriteBatch.DrawString(font, text, position + origin,
-                    color, rotation, origin, scale, SpriteEffects.None, 0.0f);
+                    color * alpha, rotation, origin, scale, SpriteEffects.None, 0.0f);
             }
         }
 

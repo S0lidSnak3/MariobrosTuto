@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Game2.Animation;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -36,6 +37,14 @@ namespace Game2.Screens
         /// </summary>
         Vector2 dimensions;
 
+        /// <summary>
+        /// Tendra transicion o no
+        /// </summary>
+        bool transition;
+        FadeAnimation fade;
+
+        Texture2D fadeTexture;
+
         #endregion
 
         #region Propiedades
@@ -61,30 +70,60 @@ namespace Game2.Screens
 
         public void AddScreen(GameScreen screen)
         {
+            transition = true;
             newScreen = screen;
-            screenStack.Push(screen);
-            currentScreen.UnloadContent();
-            currentScreen = newScreen;
-            currentScreen.LoadContent(content);
+            fade.IsActivo = true;
+            fade.Alpha = 0.0f;
+            fade.ActivateValue = 1.0f;
         }
         public void Initialize()
         {
             currentScreen = new SplashScreen();
+            fade = new FadeAnimation();
         }
         public void LoadContent(ContentManager Content)
         {
             content = new ContentManager(Content.ServiceProvider, "Content");
             currentScreen.LoadContent(Content);
+            fadeTexture = content.Load<Texture2D>("fade");
+            fade.LoadContent(Content, fadeTexture, "", Vector2.Zero);
+            fade.Scale = dimensions.X;
+
         }
         public void Update(GameTime gameTime)
         {
-            currentScreen.Update(gameTime);
+            if (!transition)
+                currentScreen.Update(gameTime);
+            else
+                Transition(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             currentScreen.Draw(spriteBatch);
+            if (transition)
+                fade.Draw(spriteBatch);
         }
 
+        #endregion
+
+        #region Metodos Privados
+
+        private void Transition(GameTime gameTime)
+        {
+            fade.Update(gameTime);
+            if(fade.Alpha == 1.0f && fade.Timer.TotalSeconds == 1.0f)
+            {
+                screenStack.Push(newScreen);
+                currentScreen.UnloadContent();
+                currentScreen = newScreen;
+                currentScreen.LoadContent(content);
+            }
+            else if(fade.Alpha == 0.0f)
+            {
+                transition = false;
+                fade.IsActivo = false;
+            }
+        }
         #endregion
     }
 }
