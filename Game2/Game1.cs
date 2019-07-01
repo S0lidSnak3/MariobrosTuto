@@ -25,7 +25,7 @@ namespace Game2
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // TODO: Acl;c,hjcuvf5f3s4dy    v NHY$ SSVdd your initialization logic here
             ScreenManager.Instance.Initialize();
 
             ScreenManager.Instance.Dimensions = new Vector2(800, 600);

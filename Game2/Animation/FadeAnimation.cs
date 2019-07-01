@@ -19,6 +19,37 @@ namespace Game2.Animation
         bool stopUpdating;
         float defaultAlpha;
 
+        public TimeSpan Timer
+        {
+            get { return timer; }
+            set { defaultTime = value; timer = defaultTime; }
+        }
+
+        public float FadeSpeed
+        {
+            get { return fadeSpeed; }
+            set { fadeSpeed = value; }
+        }
+
+        public override float Alpha
+        {
+            get { return alpha; }
+            set
+            {
+                alpha = value;
+                if (alpha == 1.0f)
+                    increase = false;
+                else if (alpha == 0.0f)
+                    increase = true;
+            }
+        }
+
+        public float ActivateValue
+        {
+            get { return activateValue; }
+            set { activateValue = value;  }
+        }
+
         public override void LoadContent(ContentManager Content, Texture2D image, string text, Vector2 position)
         {
             base.LoadContent(Content, image, text, position);
@@ -48,6 +79,17 @@ namespace Game2.Animation
                     else if (alpha >= 1.0f)
                         alpha = 1.0f;
             
+                }
+                if(alpha == activateValue)
+                {
+                    stopUpdating = true;
+                    timer -= gameTime.ElapsedGameTime;
+                    if(timer.TotalSeconds <= 0)
+                    {
+                        increase = !increase;
+                        timer = defaultTime;
+                        stopUpdating = false;
+                    }
                 }
             }
             else

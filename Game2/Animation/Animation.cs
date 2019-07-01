@@ -22,6 +22,17 @@ namespace Game2.Animation
         protected bool isActivo;
         protected float alpha;
 
+        public virtual float Alpha
+        {
+            get
+            {
+                return alpha;
+            }
+            set
+            {
+                alpha = value;
+            }
+        }
         public bool IsActivo
         {
             set { isActivo = false; }
